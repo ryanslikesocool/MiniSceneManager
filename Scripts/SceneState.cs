@@ -44,7 +44,7 @@ namespace MiniSceneManager {
 			};
 		}
 
-		public void Deinit() {
+		public void Deactivate() {
 #if FOUNDATION_NOTIFICATIONCENTER
 			NotificationCenter.Default.Post(SceneNotification.SceneWillUnload, null, accessor);
 #endif
@@ -52,7 +52,9 @@ namespace MiniSceneManager {
 			if (accessor != null) {
 				accessor.OnSceneWillUnload();
 			}
+		}
 
+		public void Deinit() {
 			sceneInstance = default;
 			IsCreated = false;
 

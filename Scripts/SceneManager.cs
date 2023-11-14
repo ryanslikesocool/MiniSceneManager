@@ -156,11 +156,12 @@ namespace MiniSceneManager {
 				return;
 			}
 
-			state.Deinit();
+			state.Deactivate();
 			Addressables.UnloadSceneAsync(
 				scene: state.sceneInstance,
 				unloadOptions: unloadOptions ?? defaultUnloadOptions
 			);
+			state.Deinit();
 			scenes.Remove(path);
 		}
 
