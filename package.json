@@ -1,9 +1,9 @@
 {
-  "name": "com.developedwithlove.somepackage",
-  "displayName": "Some Package",
+  "name": "com.developedwithlove.miniscenemanager",
+  "displayName": "Mini Scene Manager",
   "version": "0.1.0-pre.1",
-  "unity": "2020.3",
-  "description": "Some package description",
+  "unity": "2022.3",
+  "description": "A super simple scene management system.",
   "documentationUrl": "https://github.com/ryanslikesocool/PackageURL",
   "author": {
     "name": "Ryan Boyer",
@@ -11,5 +11,9 @@
     "url": "http://ryanjboyer.com/"
   },
   "license": "MIT",
-  "type": "library"
+  "type": "library",
+  "dependencies": {
+    "com.unity.addressables": "1.21.19",
+    "com.developedwithlove.foundation": "0.1.0-pre.1"
+  }
 }
