@@ -64,24 +64,8 @@ namespace MiniSceneManager {
 		/// </summary>
 		/// <param name="path">The path of the scene to load.</param>
 		/// <param name="loadParameters">Load parameters for the scene.  Leave this <see langword="null"/> to use the default.</param>
-		public static void LoadScene(in ScenePath path, LoadSceneParameters? loadParameters = null)
-			=> LoadScene(path.path, loadParameters);
-
-		/// <summary>
-		/// Load a scene at the given path.
-		/// </summary>
-		/// <param name="path">The path of the scene to load.</param>
-		/// <param name="loadParameters">Load parameters for the scene.  Leave this <see langword="null"/> to use the default.</param>
 		public static void LoadScene(in string path, LoadSceneParameters? loadParameters = null)
 			=> instance._LoadScene(path, loadParameters);
-
-		/// <summary>
-		/// Unload a scene at the given path.
-		/// </summary>
-		/// <param name="path">The path of the scene to unload.</param>
-		/// <param name="unloadOptions">Unload options for the scene.  Leave this <see langword="null"/> to use the default.</param>
-		public static void UnloadScene(in ScenePath path, UnloadSceneOptions? unloadOptions = null)
-			=> UnloadScene(path.path, unloadOptions);
 
 		/// <summary>
 		/// Unload a scene at the given path.
@@ -95,13 +79,6 @@ namespace MiniSceneManager {
 		/// Attempt to retrieve the scene accessor for a scene.
 		/// </summary>
 		/// <returns>The scene accessor for the scene at the given path.  <see langword="null"/> if the scene or its accessor is unavailable.</returns>
-		public static bool TryGetAccessor(in ScenePath path, out SceneAccessor accessor)
-			=> TryGetAccessor(path.path, out accessor);
-
-		/// <summary>
-		/// Attempt to retrieve the scene accessor for a scene.
-		/// </summary>
-		/// <returns>The scene accessor for the scene at the given path.  <see langword="null"/> if the scene or its accessor is unavailable.</returns>
 		public static bool TryGetAccessor(in string path, out SceneAccessor accessor)
 			=> instance._TryGetAccessor(path, out accessor);
 
@@ -109,22 +86,8 @@ namespace MiniSceneManager {
 		/// Check if a scene is created.  This includes scenes that are currently loading.
 		/// </summary>
 		/// <returns><see langword="true"/> if the scene at the given path is created; <see langword="false"/> otherwise.</returns>
-		public static bool IsCreated(in ScenePath path)
-			=> IsCreated(path.path);
-
-		/// <summary>
-		/// Check if a scene is created.  This includes scenes that are currently loading.
-		/// </summary>
-		/// <returns><see langword="true"/> if the scene at the given path is created; <see langword="false"/> otherwise.</returns>
 		public static bool IsCreated(in string path)
 			=> instance._IsCreated(path);
-
-		/// <summary>
-		/// Check if a scene is loaded.  This only includes scenes that have finished loading.
-		/// </summary>
-		/// <returns><see langword="true"/> if the scene at the given path is loaded; <see langword="false"/> otherwise.</returns>
-		public static bool IsLoaded(in ScenePath path)
-			=> IsLoaded(path.path);
 
 		/// <summary>
 		/// Check if a scene is loaded.  This only includes scenes that have finished loading.
