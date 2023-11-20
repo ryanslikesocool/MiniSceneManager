@@ -28,15 +28,15 @@ namespace MiniSceneManager {
 			scenes = new Dictionary<string, SceneState>();
 
 #if FOUNDATION_NOTIFICATIONCENTER
-			SceneNotification.LoadScene.received += OnLoadSceneNotification;
-			SceneNotification.UnloadScene.received += OnUnloadSceneNotification;
+			NotificationCenter.Default[SceneNotification.LoadScene].received += OnLoadSceneNotification;
+			NotificationCenter.Default[SceneNotification.UnloadScene].received += OnUnloadSceneNotification;
 #endif
 		}
 
 		~SceneManager() {
 #if FOUNDATION_NOTIFICATIONCENTER
-			SceneNotification.LoadScene.received -= OnLoadSceneNotification;
-			SceneNotification.UnloadScene.received -= OnUnloadSceneNotification;
+			NotificationCenter.Default[SceneNotification.LoadScene].received -= OnLoadSceneNotification;
+			NotificationCenter.Default[SceneNotification.UnloadScene].received -= OnUnloadSceneNotification;
 #endif
 
 			scenes.Clear();
