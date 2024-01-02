@@ -26,19 +26,9 @@ namespace MiniSceneManager {
 
 		private SceneManager() {
 			scenes = new Dictionary<string, SceneState>();
-
-#if FOUNDATION_NOTIFICATIONCENTER
-			NotificationCenter.Default[SceneNotification.LoadScene].received += OnLoadSceneNotification;
-			NotificationCenter.Default[SceneNotification.UnloadScene].received += OnUnloadSceneNotification;
-#endif
 		}
 
 		~SceneManager() {
-#if FOUNDATION_NOTIFICATIONCENTER
-			NotificationCenter.Default[SceneNotification.LoadScene].received -= OnLoadSceneNotification;
-			NotificationCenter.Default[SceneNotification.UnloadScene].received -= OnUnloadSceneNotification;
-#endif
-
 			scenes.Clear();
 			scenes = null;
 		}
@@ -146,23 +136,5 @@ namespace MiniSceneManager {
 			=> scenes.TryGetValue(path, out SceneState sceneState) && sceneState.IsLoaded;
 
 		// MARK: - Notifications
-
-#if FOUNDATION_NOTIFICATIONCENTER
-		private void OnLoadSceneNotification(in Notification notification) {
-			string scenePath = GetScenePath(notification);
-			_LoadScene(scenePath);
-		}
-
-		private void OnUnloadSceneNotification(in Notification notification) {
-			string scenePath = GetScenePath(notification);
-			_UnloadScene(scenePath);
-		}
-
-		private string GetScenePath(in Notification notification) => notification.data switch {
-			string path => path,
-			ScenePath path => path.path,
-			_ => throw new System.Exception($"Failed to get scene path from notification data: {notification.data}")
-		};
-#endif
 	}
 }
