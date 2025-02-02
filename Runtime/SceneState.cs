@@ -41,14 +41,14 @@ namespace MiniSceneManager {
 				}
 
 #if FOUNDATION_NOTIFICATIONCENTER
-				NotificationCenter.Default[SceneNotification.SceneDidLoad].Post(null, addressablePath);
+				NotificationCenter.Default.Post(SceneNotification.SceneDidLoad, null, addressablePath);
 #endif
 			};
 		}
 
 		public void Deactivate() {
 #if FOUNDATION_NOTIFICATIONCENTER
-			NotificationCenter.Default[SceneNotification.SceneWillUnload].Post(null, addressablePath);
+			NotificationCenter.Default.Post(SceneNotification.SceneWillUnload, null, addressablePath);
 #endif
 
 			if (accessor != null) {

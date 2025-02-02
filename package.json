@@ -1,18 +1,17 @@
 {
-  "name": "com.developedwithlove.miniscenemanager",
-  "displayName": "Mini Scene Manager",
-  "version": "0.1.0-pre.1",
-  "unity": "2022.3",
-  "description": "A super simple scene management system.",
-  "documentationUrl": "https://github.com/ryanslikesocool/MiniSceneManager",
-  "licenseUrl": "https://github.com/ryanslikesocool/MiniSceneManager/blob/main/LICENSE.md",
-  "author": {
-    "name": "Ryan Boyer",
-    "email": "ryanjboyer@gmail.com",
-    "url": "http://ryanjboyer.com/"
-  },
-  "type": "library",
-  "dependencies": {
-    "com.unity.addressables": "1.21.19"
-  }
+	"name": "com.developedwithlove.miniscenemanager",
+	"displayName": "Mini Scene Manager",
+	"version": "0.1.0-pre.1",
+	"unity": "2022.3",
+	"description": "A super simple scene management system.",
+	"documentationUrl": "https://github.com/ryanslikesocool/MiniSceneManager",
+	"licenseUrl": "https://github.com/ryanslikesocool/MiniSceneManager/blob/main/LICENSE.md",
+	"author": {
+		"name": "Ryan Boyer",
+		"url": "https://ryanjboyer.com/"
+	},
+	"type": "library",
+	"dependencies": {
+		"com.unity.addressables": "1.21.19"
+	}
 }

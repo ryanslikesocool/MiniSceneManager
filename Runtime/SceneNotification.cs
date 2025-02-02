@@ -3,8 +3,21 @@ using Foundation;
 
 namespace MiniSceneManager {
 	public static class SceneNotification {
-		public static readonly Notification.Name SceneDidLoad = new Notification.Name("MiniSceneManager.Scene.DidLoad");
-		public static readonly Notification.Name SceneWillUnload = new Notification.Name("MiniSceneManager.Scene.WillUnload");
+		public static readonly
+#if FOUNDATION_NOTIFICATIONCENTER_TYPESAFE
+			Notification<object, string>.Name
+#else
+			Notification.Name
+#endif
+				SceneDidLoad = new("MiniSceneManager.Scene.DidLoad");
+
+		public static readonly
+#if FOUNDATION_NOTIFICATIONCENTER_TYPESAFE
+			Notification<object, string>.Name
+#else
+			Notification.Name
+#endif
+				SceneWillUnload = new("MiniSceneManager.Scene.WillUnload");
 	}
 }
 #endif
