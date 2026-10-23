@@ -12,7 +12,7 @@ namespace MiniSceneManager {
 	public sealed class SceneManager {
 		private static SceneManager instance { get; set; } = default;
 
-		private LoadSceneParameters defaultLoadParameters = new LoadSceneParameters(LoadSceneMode.Additive, LocalPhysicsMode.None);
+		private LoadSceneParameters defaultLoadParameters = new(LoadSceneMode.Additive, LocalPhysicsMode.None);
 		private UnloadSceneOptions defaultUnloadOptions = UnloadSceneOptions.UnloadAllEmbeddedSceneObjects;
 
 		private Dictionary<string, SceneState> scenes;
@@ -21,11 +21,11 @@ namespace MiniSceneManager {
 
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 		private static void _Initialize() {
-			instance = new SceneManager();
+			instance = new();
 		}
 
 		private SceneManager() {
-			scenes = new Dictionary<string, SceneState>();
+			scenes = new();
 		}
 
 		~SceneManager() {
@@ -69,7 +69,7 @@ namespace MiniSceneManager {
 		/// Attempt to retrieve the scene accessor for a scene.
 		/// </summary>
 		/// <returns>The scene accessor for the scene at the given path.  <see langword="null"/> if the scene or its accessor is unavailable.</returns>
-		public static bool TryGetAccessor(in string path, out SceneAccessor accessor)
+		public static bool TryGetAccessor<Accessor>(in string path, out Accessor accessor) where Accessor : SceneAccessor
 			=> instance._TryGetAccessor(path, out accessor);
 
 		/// <summary>
@@ -89,9 +89,11 @@ namespace MiniSceneManager {
 		// MARK: - Private
 
 		private void _LoadScene(in string path, LoadSceneParameters? loadParameters = null) {
-			if (!scenes.TryAdd(path, new SceneState())) {
+			// Don't use `TryAdd`, since it would create a new `SceneState` even if it's not used.
+			if (scenes.ContainsKey(path)) {
 				return;
 			}
+			scenes.Add(path, new SceneState());
 
 			AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(
 				key: path,
@@ -118,15 +120,21 @@ namespace MiniSceneManager {
 			scenes.Remove(path);
 		}
 
-		private bool _TryGetSceneState(in string path, out SceneState state) => scenes.TryGetValue(path, out state);
+		private bool _TryGetSceneState(in string path, out SceneState state)
+			=> scenes.TryGetValue(path, out state);
 
-		private bool _TryGetAccessor(in string path, out SceneAccessor accessor) {
-			if (_TryGetSceneState(path, out SceneState state)) {
-				accessor = state.accessor;
-				return true;
+		private bool _TryGetAccessor<Accessor>(in string path, out Accessor accessor)
+			where Accessor : SceneAccessor {
+			if (
+				_TryGetSceneState(path, out SceneState state)
+				&& state.accessor is Accessor typedAccessor
+			) {
+				accessor = typedAccessor;
+			} else {
+				accessor = null;
 			}
-			accessor = null;
-			return false;
+
+			return accessor != null;
 		}
 
 		private bool _IsCreated(in string path)

@@ -2,17 +2,17 @@ using UnityEngine;
 
 namespace MiniSceneManager {
 	/// <summary>
-	/// SceneAccessor acts as a bridge between scenes.
-	/// Add a SceneAccessor subclass to a root gameobject in a scene and the SceneManager will find it and call lifecycle events.
+	/// <see cref="SceneAccessor"/> acts as a bridge between scenes.
+	/// Add a <see cref="SceneAccessor"/> subclass to a root Game Object in a scene and the <see cref="SceneManager"/> will find it and call lifecycle events.
 	/// </summary>
 	public abstract class SceneAccessor : MonoBehaviour {
 		/// <summary>
-		/// OnSceneDidLoad is called immediately after its containing scene is loaded.
+		/// This method is called immediately after the containing scene is loaded.
 		/// </summary>
 		public virtual void OnSceneDidLoad() { }
 
 		/// <summary>
-		/// OnSceneWillUnload is called immediately before its containing scene is unloaded.
+		/// This method is called immediately before the containing scene is unloaded.
 		/// </summary>
 		public virtual void OnSceneWillUnload() { }
 	}

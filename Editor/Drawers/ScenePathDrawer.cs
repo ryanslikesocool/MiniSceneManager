@@ -1,6 +1,6 @@
 #if UNITY_EDITOR
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 namespace MiniSceneManager.Editor {
 	[CustomPropertyDrawer(typeof(ScenePath))]
@@ -51,10 +51,14 @@ namespace MiniSceneManager.Editor {
 				menuContent = new GUIContent(icon);
 			}
 
-			if (EditorGUI.DropdownButton(pickerRect, menuContent, FocusType.Passive, EditorStyles.iconButton)) { // menu
+			// menu
+			if (EditorGUI.DropdownButton(pickerRect, menuContent, FocusType.Passive, EditorStyles.iconButton)) {
 				GenericMenu menu = new GenericMenu();
-				menu.AddItem(new GUIContent("Value"), mode == Mode.Value, () => mode = Mode.Value);
-				menu.AddItem(new GUIContent("Reference"), mode == Mode.Reference, () => mode = Mode.Reference);
+
+				foreach ((Mode value, string label) element in PickerElements) {
+					menu.AddItem(new GUIContent(element.label), mode == element.value, () => mode = element.value);
+				}
+
 				menu.ShowAsContext();
 			}
 
@@ -63,6 +67,13 @@ namespace MiniSceneManager.Editor {
 
 			EditorGUI.EndProperty();
 		}
+
+		// MARK: - Constants
+
+		private static readonly (Mode value, string label)[] PickerElements = new[] {
+			(Mode.Value, nameof(Mode.Value)),
+			(Mode.Reference, nameof(Mode.Reference)),
+		};
 	}
 }
 #endif
